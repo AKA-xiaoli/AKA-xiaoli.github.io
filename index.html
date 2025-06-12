@@ -1,13 +1,817 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ACE Lab Website</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACE Lab - KUMA JUNGLE - City University of Hong Kong</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --deep-blue: #003366;
+            --mid-blue: #1a5276;
+            --light-blue: #3498db;
+            --dark-gray: #2c3e50;
+            --mid-gray: #7f8c8d;
+            --light-gray: #ecf0f1;
+            --accent: #e67e22;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--deep-blue) 0%, var(--dark-gray) 100%);
+            color: var(--white);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            margin-right: 15px;
+        }
+        
+        .lab-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .lab-subname {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 30px;
+        }
+        
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 5px 0;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            color: var(--accent);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80') center/cover no-repeat;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            color: var(--white);
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #d35400;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Tab Section */
+        .tabs-section {
+            background-color: var(--white);
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--deep-blue);
+            font-size: 2.5rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+        }
+        
+        .tabs-container {
+            background-color: var(--light-gray);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tab-buttons {
+            display: flex;
+            background-color: var(--deep-blue);
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 20px;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .tab-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .tab-btn.active {
+            background-color: var(--mid-blue);
+        }
+        
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--accent);
+        }
+        
+        .tab-content {
+            padding: 40px;
+            min-height: 500px;
+        }
+        
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .tab-pane.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Research Section */
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .research-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .research-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .research-img {
+            height: 200px;
+            background-color: var(--mid-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .research-content {
+            padding: 25px;
+        }
+        
+        .research-content h3 {
+            color: var(--deep-blue);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        /* Team Section */
+        .team-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .team-member {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        .member-img {
+            height: 250px;
+            background-color: var(--mid-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .member-info {
+            padding: 25px 15px;
+        }
+        
+        .member-info h3 {
+            color: var(--deep-blue);
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+        
+        .member-position {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--light-blue);
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-3px);
+            background-color: var(--accent);
+        }
+        
+        /* Openings Section */
+        .openings-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .opening {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .opening h3 {
+            color: var(--deep-blue);
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+        }
+        
+        .opening-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            color: var(--mid-gray);
+        }
+        
+        .opening-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .requirements {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        .requirements h4 {
+            color: var(--mid-blue);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .requirements ul {
+            padding-left: 20px;
+        }
+        
+        .requirements li {
+            margin-bottom: 10px;
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            background-color: var(--deep-blue);
+            color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .contact-section .section-title {
+            color: var(--white);
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .contact-details h3 {
+            margin-bottom: 5px;
+            font-size: 1.3rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-gray);
+            color: var(--light-gray);
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .copyright {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            nav li {
+                margin: 0 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .tab-buttons {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo-container">
+                <div class="logo">
+                    <i class="fas fa-flask"></i>
+                </div>
+                <div>
+                    <div class="lab-name">ACE Lab</div>
+                    <div class="lab-subname">KUMA JUNGLE • City University of Hong Kong</div>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#research">Research</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#openings">Openings</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Advanced Computing & Engineering Lab</h1>
+            <p>Pushing the boundaries of data science and intelligent systems for biological applications</p>
+            <a href="#research" class="btn">Explore Our Research</a>
+        </div>
+    </section>
+
+    <!-- Tabs Section -->
+    <section class="tabs-section">
+        <div class="container">
+            <h2 class="section-title">Our Lab</h2>
+            <div class="tabs-container">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="research">Research</button>
+                    <button class="tab-btn" data-tab="team">Team</button>
+                    <button class="tab-btn" data-tab="openings">Openings</button>
+                </div>
+                <div class="tab-content">
+                    <!-- Research Tab -->
+                    <div id="research" class="tab-pane active">
+                        <h3>Research Areas</h3>
+                        <p>Our lab focuses on developing cutting-edge data-driven tools and computational methods for biological applications.</p>
+                        
+                        <div class="research-grid">
+                            <div class="research-card">
+                                <div class="research-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), #1a5276;">
+                                    Machine Learning for Biology
+                                </div>
+                                <div class="research-content">
+                                    <h3>AI-driven Biological Discovery</h3>
+                                    <p>Developing deep learning models to predict protein structures, analyze genomic data, and accelerate drug discovery processes.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="research-card">
+                                <div class="research-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), #2c3e50;">
+                                    Computational Biology
+                                </div>
+                                <div class="research-content">
+                                    <h3>Systems Biology Modeling</h3>
+                                    <p>Creating computational models to understand complex biological systems and their interactions at multiple scales.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="research-card">
+                                <div class="research-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), #3498db;">
+                                    Biomedical Data Science
+                                </div>
+                                <div class="research-content">
+                                    <h3>Medical Image Analysis</h3>
+                                    <p>Applying computer vision and pattern recognition techniques to analyze medical images for early disease detection.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Team Tab -->
+                    <div id="team" class="tab-pane">
+                        <h3>Our Team</h3>
+                        <p>Meet the talented researchers and students driving innovation at ACE Lab.</p>
+                        
+                        <div class="team-container">
+                            <div class="team-member">
+                                <div class="member-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), #1a5276;">
+                                    Prof. Wei Ye
+                                </div>
+                                <div class="member-info">
+                                    <h3>Wei Ye</h3>
+                                    <div class="member-position">Principal Investigator</div>
+                                    <p>Assistant Professor in Data Science at CityU HK. Expert in computational biology and machine learning.</p>
+                                    <div class="social-links">
+                                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                        <a href="#"><i class="fas fa-envelope"></i></a>
+                                        <a href="#"><i class="fas fa-graduation-cap"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="team-member">
+                                <div class="member-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), #2c3e50;">
+                                    Dr. Jane Chen
+                                </div>
+                                <div class="member-info">
+                                    <h3>Jane Chen</h3>
+                                    <div class="member-position">Postdoctoral Researcher</div>
+                                    <p>Specializing in deep learning for genomics and proteomics data analysis.</p>
+                                    <div class="social-links">
+                                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                        <a href="#"><i class="fas fa-envelope"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="team-member">
+                                <div class="member-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), #3498db;">
+                                    Michael Wong
+                                </div>
+                                <div class="member-info">
+                                    <h3>Michael Wong</h3>
+                                    <div class="member-position">PhD Candidate</div>
+                                    <p>Researching computational methods for single-cell RNA sequencing analysis.</p>
+                                    <div class="social-links">
+                                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                        <a href="#"><i class="fas fa-envelope"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="team-member">
+                                <div class="member-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), #e67e22;">
+                                    Sarah Li
+                                </div>
+                                <div class="member-info">
+                                    <h3>Sarah Li</h3>
+                                    <div class="member-position">Research Assistant</div>
+                                    <p>Developing tools for biomedical image segmentation and classification.</p>
+                                    <div class="social-links">
+                                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                        <a href="#"><i class="fas fa-envelope"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Openings Tab -->
+                    <div id="openings" class="tab-pane">
+                        <h3>Join Our Team</h3>
+                        <p>We're always looking for talented individuals to join our research group.</p>
+                        
+                        <div class="openings-container">
+                            <div class="opening">
+                                <h3>PhD Positions in Computational Biology</h3>
+                                <div class="opening-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> CityU Hong Kong</span>
+                                    <span><i class="fas fa-calendar-alt"></i> Start Date: Fall 2025</span>
+                                    <span><i class="fas fa-clock"></i> Full-time</span>
+                                </div>
+                                <p>We are seeking motivated PhD candidates with backgrounds in computer science, bioinformatics, or related fields to work on developing novel computational methods for biological data analysis.</p>
+                                
+                                <div class="requirements">
+                                    <h4>Requirements:</h4>
+                                    <ul>
+                                        <li>Master's degree in Computer Science, Bioinformatics, or related field</li>
+                                        <li>Strong programming skills (Python, R, C++)</li>
+                                        <li>Experience with machine learning frameworks (TensorFlow, PyTorch)</li>
+                                        <li>Excellent written and verbal communication skills in English</li>
+                                    </ul>
+                                </div>
+                                
+                                <a href="#" class="btn" style="margin-top: 20px;">Apply Now</a>
+                            </div>
+                            
+                            <div class="opening">
+                                <h3>Postdoctoral Researcher in AI for Healthcare</h3>
+                                <div class="opening-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> CityU Hong Kong</span>
+                                    <span><i class="fas fa-calendar-alt"></i> Start Date: Flexible</span>
+                                    <span><i class="fas fa-clock"></i> Full-time</span>
+                                </div>
+                                <p>We invite applications for a postdoctoral position to develop and apply deep learning approaches for medical image analysis and healthcare applications.</p>
+                                
+                                <div class="requirements">
+                                    <h4>Requirements:</h4>
+                                    <ul>
+                                        <li>PhD in Computer Science, Biomedical Engineering, or related field</li>
+                                        <li>Strong publication record in relevant conferences/journals</li>
+                                        <li>Experience with medical image analysis and deep learning</li>
+                                        <li>Ability to work independently and mentor students</li>
+                                    </ul>
+                                </div>
+                                
+                                <a href="#" class="btn" style="margin-top: 20px;">Apply Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Location</h3>
+                        <p>Department of Data Science<br>City University of Hong Kong<br>Hong Kong SAR</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Email</h3>
+                        <p>wei.ye@cityu.edu.hk<br>acelab@cityu.edu.hk</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Phone</h3>
+                        <p>+852 3442-xxxx</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="copyright">
+                &copy; 2025 ACE Lab (KUMA JUNGLE), City University of Hong Kong. All Rights Reserved.
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Use</a>
+                <a href="#">Sitemap</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tab functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabPanes = document.querySelectorAll('.tab-pane');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all buttons and panes
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabPanes.forEach(pane => pane.classList.remove('active'));
+                    
+                    // Add active class to clicked button and corresponding pane
+                    this.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
 </html>
